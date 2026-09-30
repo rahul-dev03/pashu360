@@ -1,0 +1,67 @@
+diff --git a/api/sarvam/status.ts b/api/sarvam/status.ts
+new file mode 100644
+index 0000000..264f158
+--- /dev/null
++++ b/api/sarvam/status.ts
+@@ -0,0 +1,2 @@
++// Vercel Node.js function entrypoint; the Express route remains in server.ts.
++export { default } from '../../server.ts';
+diff --git a/api/sarvam/stt.ts b/api/sarvam/stt.ts
+new file mode 100644
+index 0000000..264f158
+--- /dev/null
++++ b/api/sarvam/stt.ts
+@@ -0,0 +1,2 @@
++// Vercel Node.js function entrypoint; the Express route remains in server.ts.
++export { default } from '../../server.ts';
+diff --git a/api/sarvam/tts.ts b/api/sarvam/tts.ts
+new file mode 100644
+index 0000000..264f158
+--- /dev/null
++++ b/api/sarvam/tts.ts
+@@ -0,0 +1,2 @@
++// Vercel Node.js function entrypoint; the Express route remains in server.ts.
++export { default } from '../../server.ts';
+diff --git a/package.json b/package.json
+index 2866b8e..4b71292 100644
+--- a/package.json
++++ b/package.json
+@@ -3,6 +3,9 @@
+   "private": true,
+   "version": "0.0.0",
+   "type": "module",
++  "engines": {
++    "node": "22.x"
++  },
+   "scripts": {
+     "dev": "tsx server.ts",
+     "build": "vite build",
+diff --git a/server.ts b/server.ts
+index b3ac2fa..c0ad3e1 100644
+--- a/server.ts
++++ b/server.ts
+@@ -7,6 +7,8 @@ import { speechToText, textToSpeech, getSarvamStatus } from './src/server/sarvam
+ dotenv.config();
+ 
+ const app = express();
++export default app;
++
+ const PORT = parseInt(process.env.PORT || '3000', 10);
+ const isProd = process.env.NODE_ENV === 'production';
+ 
+@@ -112,7 +114,11 @@ async function startServer() {
+   });
+ }
+ 
+-startServer().catch((err) => {
+-  console.error('Failed to start server:', err);
+-  process.exit(1);
+-});
++// Vercel invokes the exported Express app through its function adapter; it must
++// not start a long-lived listener there. Keep the existing local dev/start flow.
++if (!process.env.VERCEL) {
++  startServer().catch((err) => {
++    console.error('Failed to start server:', err);
++    process.exit(1);
++  });
++}
