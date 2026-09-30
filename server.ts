@@ -7,6 +7,8 @@ import { speechToText, textToSpeech, getSarvamStatus } from './src/server/sarvam
 dotenv.config();
 
 const app = express();
+export default app;
+
 const PORT = parseInt(process.env.PORT || '3000', 10);
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -112,7 +114,11 @@ async function startServer() {
   });
 }
 
-startServer().catch((err) => {
-  console.error('Failed to start server:', err);
-  process.exit(1);
-});
+// Vercel invokes the exported Express app through its function adapter; it must
+// not start a long-lived listener there. Keep the existing local dev/start flow.
+if (!process.env.VERCEL) {
+  startServer().catch((err) => {
+    console.error('Failed to start server:', err);
+    process.exit(1);
+  });
+}
