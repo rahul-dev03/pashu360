@@ -1,0 +1,391 @@
+import { Cattle, FarmerProfile, HealthAssessmentResult, MilkYieldRecord, PendingSyncItem, SyncedItem, TimelineItemData } from '../types';
+import champaCowPhoto from '../assets/images/champa_cow_portrait_1790444600765.jpg';
+import girCowPhoto from '../assets/images/gir_cow_gauri_1790603427631.jpg';
+import sahiwalCowPhoto from '../assets/images/sahiwal_cow_lakshmi_1790603441182.jpg';
+import farmerPhoto from '../assets/images/farmer_rahul_avatar_1790603410179.jpg';
+
+export { champaCowPhoto, girCowPhoto, sahiwalCowPhoto, farmerPhoto };
+
+export const mockFarmer: FarmerProfile = {
+  name: 'राहुल यादव',
+  nameHindi: 'राहुल यादव',
+  photoUrl: farmerPhoto,
+  village: 'Karnal',
+  district: 'Karnal',
+  state: 'Haryana',
+  phone: '98765 43210',
+  locationCoords: { lat: 29.6857, lng: 76.9905 },
+  locationStatus: 'detected',
+  weatherTemp: 27,
+  heatIndex: 'THI 72 • Optimal',
+  totalCattle: 3,
+  preferredLanguage: 'hi',
+};
+
+// Compact 14-day milk yield history
+export const mockMilkYield14Days: Record<string, MilkYieldRecord[]> = {
+  gauri: [
+    { date: '11 Sep', dayShort: '11', yieldLiters: 12.3 },
+    { date: '12 Sep', dayShort: '12', yieldLiters: 12.5 },
+    { date: '13 Sep', dayShort: '13', yieldLiters: 12.4 },
+    { date: '14 Sep', dayShort: '14', yieldLiters: 12.6 },
+    { date: '15 Sep', dayShort: '15', yieldLiters: 12.3 },
+    { date: '16 Sep', dayShort: '16', yieldLiters: 12.4 },
+    { date: '17 Sep', dayShort: '17', yieldLiters: 12.5 },
+    { date: '18 Sep', dayShort: '18', yieldLiters: 12.4 },
+    { date: '19 Sep', dayShort: '19', yieldLiters: 12.2 },
+    { date: '20 Sep', dayShort: '20', yieldLiters: 12.5 },
+    { date: '21 Sep', dayShort: '21', yieldLiters: 12.4 },
+    { date: '22 Sep', dayShort: '22', yieldLiters: 12.6 },
+    { date: '23 Sep', dayShort: '23', yieldLiters: 12.3 },
+    { date: '24 Sep', dayShort: '24', yieldLiters: 10.2 },
+  ],
+  laxmi: [
+    { date: '11 Sep', dayShort: '11', yieldLiters: 10.7 },
+    { date: '12 Sep', dayShort: '12', yieldLiters: 10.8 },
+    { date: '13 Sep', dayShort: '13', yieldLiters: 10.9 },
+    { date: '14 Sep', dayShort: '14', yieldLiters: 10.6 },
+    { date: '15 Sep', dayShort: '15', yieldLiters: 10.8 },
+    { date: '16 Sep', dayShort: '16', yieldLiters: 10.8 },
+    { date: '17 Sep', dayShort: '17', yieldLiters: 10.9 },
+    { date: '18 Sep', dayShort: '18', yieldLiters: 10.7 },
+    { date: '19 Sep', dayShort: '19', yieldLiters: 10.8 },
+    { date: '20 Sep', dayShort: '20', yieldLiters: 10.9 },
+    { date: '21 Sep', dayShort: '21', yieldLiters: 10.8 },
+    { date: '22 Sep', dayShort: '22', yieldLiters: 10.7 },
+    { date: '23 Sep', dayShort: '23', yieldLiters: 10.8 },
+    { date: '24 Sep', dayShort: '24', yieldLiters: 10.8 },
+  ],
+  champa: [
+    { date: '11 Sep', dayShort: '11', yieldLiters: 8.6 },
+    { date: '12 Sep', dayShort: '12', yieldLiters: 8.7 },
+    { date: '13 Sep', dayShort: '13', yieldLiters: 8.5 },
+    { date: '14 Sep', dayShort: '14', yieldLiters: 8.6 },
+    { date: '15 Sep', dayShort: '15', yieldLiters: 8.4 },
+    { date: '16 Sep', dayShort: '16', yieldLiters: 8.5 },
+    { date: '17 Sep', dayShort: '17', yieldLiters: 8.6 },
+    { date: '18 Sep', dayShort: '18', yieldLiters: 8.3 },
+    { date: '19 Sep', dayShort: '19', yieldLiters: 8.2 },
+    { date: '20 Sep', dayShort: '20', yieldLiters: 8.0 },
+    { date: '21 Sep', dayShort: '21', yieldLiters: 7.8 },
+    { date: '22 Sep', dayShort: '22', yieldLiters: 7.4 },
+    { date: '23 Sep', dayShort: '23', yieldLiters: 7.0 },
+    { date: '24 Sep', dayShort: '24', yieldLiters: 6.8 },
+  ],
+};
+
+// High quality, realistic image URLs representing Gir, Sahiwal, and HF Cross
+export const mockCattle: Cattle[] = [
+  {
+    id: 'gauri',
+    name: 'Gauri',
+    nameHindi: 'गौरी',
+    breed: 'Gir',
+    tag: 'P360-021',
+    age: '4 years 7 months',
+    pregnancy: '5 months pregnant',
+    vaccination: 'FMD due 18 Oct',
+    nextVaccinationDate: '18 Oct 2026',
+    baselineMilk: 12.4,
+    todayMilk: 10.2,
+    status: 'Veterinary Review',
+    // Realistic Indian Gir cow photo
+    photoUrl: girCowPhoto,
+    lastHealthCheck: {
+      status: 'Veterinary Review',
+      date: '24 Sep',
+      time: '7:45 AM',
+    },
+  },
+  {
+    id: 'laxmi',
+    name: 'Lakshmi',
+    nameHindi: 'लक्ष्मी',
+    breed: 'Sahiwal',
+    tag: 'P360-044',
+    age: '3 years 2 months',
+    pregnancy: 'Not pregnant',
+    vaccination: 'Brucellosis completed (Up to date)',
+    nextVaccinationDate: '12 Dec 2026',
+    baselineMilk: 10.8,
+    todayMilk: 10.8,
+    status: 'Healthy',
+    // Realistic Indian Sahiwal cow photo
+    photoUrl: sahiwalCowPhoto,
+    lastHealthCheck: {
+      status: 'Healthy',
+      date: '24 Sep',
+      time: '7:15 AM',
+    },
+  },
+  {
+    id: 'champa',
+    name: 'Champa',
+    nameHindi: 'चंपा',
+    breed: 'HF Cross',
+    tag: 'P360-089',
+    age: '5 years 1 month',
+    pregnancy: '2 months pregnant',
+    vaccination: 'HS due 30 Oct',
+    nextVaccinationDate: '30 Oct 2026',
+    baselineMilk: 8.6,
+    todayMilk: 6.8,
+    status: 'Urgent',
+    // High-resolution authentic HF Cross cow portrait with ear tag visible
+    photoUrl: champaCowPhoto,
+    lastHealthCheck: {
+      status: 'Urgent',
+      date: '24 Sep',
+      time: '6:30 AM',
+    },
+  },
+];
+
+export const mockTimelineRecords: TimelineItemData[] = [
+  {
+    id: 'tl-ref-1',
+    cattleId: 'gauri',
+    date: '24 Sep',
+    time: '7:45 AM',
+    title: 'Para-vet referral dispatched',
+    subtitle: 'Ticket #REF-2026-8196 • Karnal Block Hospital (Ambulance Unit 2)',
+    category: 'care',
+    iconType: 'stethoscope',
+    iconColor: 'amber',
+  },
+  {
+    id: 'tl-1',
+    cattleId: 'gauri',
+    date: '24 Sep',
+    time: '7:41 AM',
+    title: 'Daily health check (AARVI)',
+    subtitle: 'Veterinary Review • Milk 10.2 L (-17.7%) • Left rear teat heat',
+    category: 'checks',
+    iconType: 'heart',
+    iconColor: 'amber',
+  },
+  {
+    id: 'tl-champa-ref',
+    cattleId: 'champa',
+    date: '24 Sep',
+    time: '6:30 AM',
+    title: 'Emergency referral dispatched',
+    subtitle: 'Ticket #REF-2026-8601 • 40.6°C hyperthermia & frothy salivation',
+    category: 'care',
+    iconType: 'stethoscope',
+    iconColor: 'red',
+  },
+  {
+    id: 'tl-2',
+    cattleId: 'gauri',
+    date: '21 Sep',
+    time: '10:15 AM',
+    title: 'Para-vet visit',
+    subtitle: 'Routine pregnancy examination • 5 months confirmed',
+    category: 'care',
+    iconType: 'stethoscope',
+    iconColor: 'green',
+  },
+  {
+    id: 'tl-3',
+    cattleId: 'gauri',
+    date: '12 Sep',
+    time: '5:30 PM',
+    title: 'Deworming treatment',
+    subtitle: 'Albendazole • Dose completed',
+    category: 'care',
+    iconType: 'pill',
+    iconColor: 'amber',
+  },
+  {
+    id: 'tl-4',
+    cattleId: 'gauri',
+    date: '28 Aug',
+    time: '9:00 AM',
+    title: 'FMD vaccination',
+    subtitle: 'Next dose due 18 Oct 2026',
+    category: 'care',
+    iconType: 'syringe',
+    iconColor: 'green',
+  },
+  {
+    id: 'tl-5',
+    cattleId: 'gauri',
+    date: '26 Aug',
+    time: '7:20 AM',
+    title: 'Daily health check',
+    subtitle: 'Mild appetite drop • Resolved',
+    category: 'checks',
+    iconType: 'clipboard',
+    iconColor: 'green',
+  },
+];
+
+export const mockPendingRecords: PendingSyncItem[] = [
+  {
+    id: 'sync-1',
+    cattleName: 'Gauri',
+    recordType: 'Health check',
+    timestamp: 'Today, 7:40 AM',
+    status: 'pending',
+  },
+  {
+    id: 'sync-2',
+    cattleName: 'Laxmi',
+    recordType: 'Milk record',
+    timestamp: 'Today, 6:55 AM',
+    status: 'pending',
+  },
+  {
+    id: 'sync-3',
+    cattleName: 'Champa',
+    recordType: 'Treatment note',
+    timestamp: 'Yesterday, 5:20 PM',
+    status: 'pending',
+  },
+];
+
+export const mockSyncedRecords: SyncedItem[] = [
+  {
+    id: 'synced-1',
+    title: 'Gauri • Milk record',
+    timestamp: 'Yesterday, 7:12 AM',
+    status: 'synced',
+  },
+  {
+    id: 'synced-2',
+    title: 'FMD vaccination',
+    timestamp: '28 Aug, 9:00 AM',
+    status: 'synced',
+  },
+];
+
+export const mockDefaultAssessment: HealthAssessmentResult = {
+  cattleId: 'gauri',
+  cattleName: 'Gauri',
+  breed: 'Gir',
+  tag: 'P360-021',
+  riskLevel: 'Attention',
+  headline: 'Gauri needs a closer look today',
+  description: 'These signs may point to early illness. A para-vet can help you check her safely.',
+  reasons: [
+    {
+      icon: 'thermometer',
+      title: 'Mild temperature rise',
+      description: "39.4°C — above Gauri's usual range",
+      severity: 'mild',
+    },
+    {
+      icon: 'milk',
+      title: 'Milk output is lower',
+      description: 'Down 1.8 L from her 7-day average',
+      severity: 'moderate',
+    },
+    {
+      icon: 'feed',
+      title: 'Reduced appetite reported',
+      description: 'Eating less since this morning',
+      severity: 'mild',
+    },
+  ],
+  recommendation: 'Keep fresh water nearby and monitor her until help arrives.',
+  checkedAt: 'Checked just now',
+};
+
+// Alternative mock assessments for testing different risk levels
+export const mockRiskAssessments: Record<string, HealthAssessmentResult> = {
+  Attention: mockDefaultAssessment,
+  Healthy: {
+    cattleId: 'gauri',
+    cattleName: 'Gauri',
+    breed: 'Gir',
+    tag: 'P360-021',
+    riskLevel: 'Healthy',
+    headline: 'Gauri is in great health today',
+    description: 'All vital signs, appetite, and milk yield match expected benchmarks.',
+    reasons: [
+      {
+        icon: 'thermometer',
+        title: 'Body temperature normal',
+        description: '38.6°C — optimal for Gir cattle',
+        severity: 'mild',
+      },
+      {
+        icon: 'milk',
+        title: 'Milk yield on target',
+        description: '12.4 L produced this morning',
+        severity: 'mild',
+      },
+      {
+        icon: 'feed',
+        title: 'Healthy appetite & rumination',
+        description: 'Chewing cud regularly and active',
+        severity: 'mild',
+      },
+    ],
+    recommendation: 'Continue regular feed mix and routine milking schedule.',
+    checkedAt: 'Checked just now',
+  },
+  'Veterinary Review': {
+    cattleId: 'champa',
+    cattleName: 'Champa',
+    breed: 'HF Cross',
+    tag: 'P360-089',
+    riskLevel: 'Veterinary Review',
+    headline: 'Veterinary review recommended',
+    description: 'Persistent yield reduction and lethargy observed across 48 hours.',
+    reasons: [
+      {
+        icon: 'milk',
+        title: 'Significant milk drop',
+        description: 'Down 2.4 L over consecutive days',
+        severity: 'moderate',
+      },
+      {
+        icon: 'thermometer',
+        title: 'Elevated temperature',
+        description: '39.8°C with warm ear base',
+        severity: 'moderate',
+      },
+      {
+        icon: 'feed',
+        title: 'Refusing green fodder',
+        description: 'Only consuming small amounts of dry fodder',
+        severity: 'moderate',
+      },
+    ],
+    recommendation: 'Keep animal in shaded cool pen. Notify designated block vet.',
+    checkedAt: 'Checked just now',
+  },
+  Urgent: {
+    cattleId: 'champa',
+    cattleName: 'Champa',
+    breed: 'HF Cross',
+    tag: 'P360-089',
+    riskLevel: 'Urgent',
+    headline: 'Urgent medical attention needed',
+    description: 'High fever and respiratory distress detected. Immediate veterinary intervention required.',
+    reasons: [
+      {
+        icon: 'thermometer',
+        title: 'High fever detected',
+        description: '40.6°C — acute fever indicator',
+        severity: 'high',
+      },
+      {
+        icon: 'breathing',
+        title: 'Labored breathing',
+        description: 'Heavy panting and nasal discharge',
+        severity: 'high',
+      },
+      {
+        icon: 'activity',
+        title: 'Severe lethargy',
+        description: 'Unable to stand for milking routine',
+        severity: 'high',
+      },
+    ],
+    recommendation: 'Isolate cow immediately. Emergency helpline dispatched alert to nearest Para-Vet.',
+    checkedAt: 'Checked just now',
+  },
+};

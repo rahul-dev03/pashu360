@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Inter', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #F8FAF7;
+    color: #111827;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Custom scrollbar hiding */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Sound Waveform animation */
+@keyframes wavePulse {
+  0%, 100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.animate-wave-1 {
+  animation: wavePulse 1.2s ease-in-out infinite;
+}
+.animate-wave-2 {
+  animation: wavePulse 0.9s ease-in-out infinite 0.15s;
+}
+.animate-wave-3 {
+  animation: wavePulse 1.4s ease-in-out infinite 0.3s;
+}
+.animate-wave-4 {
+  animation: wavePulse 0.8s ease-in-out infinite 0.1s;
+}
+.animate-wave-5 {
+  animation: wavePulse 1.1s ease-in-out infinite 0.25s;
+}

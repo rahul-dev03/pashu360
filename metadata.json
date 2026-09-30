@@ -1,0 +1,6 @@
+{
+  "name": "Pashu360 — Livestock Healthcare",
+  "description": "Offline-first livestock healthcare platform for Indian dairy farmers with early disease warning powered by AARVI voice assistant.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
