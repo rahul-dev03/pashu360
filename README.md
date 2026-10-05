@@ -51,6 +51,23 @@ next question according to the farmer's responses.
 - Para-vet referral workflow
 - Government/district surveillance dashboard
 
+# Pashu360
+
+<img width="228" height="228" alt="image" src="https://github.com/user-attachments/assets/5468246d-73fe-4d5b-bb23-e04b50b6b5b4" />
+
+
+AI-Powered Livestock Health & Early Warning Platform
+
+https://youtu.be/LFrjqMtPTzI
+
+## 📱 Prototype
+
+<img width="756" height="1601" alt="image" src="https://github.com/user-attachments/assets/4d95d140-960e-473e-b7a5-4920e38ff689" />  Home
+<img width="858" height="1599" alt="image" src="https://github.com/user-attachments/assets/207fb97e-0652-4968-aa47-6de0ec530f3d" />  AARVI
+<img width="1902" height="916" alt="image" src="https://github.com/user-attachments/assets/eb1ce9d4-722a-4525-babc-e0ba3d8779e5" />  Vet dashboard
+<img width="1892" height="917" alt="image" src="https://github.com/user-attachments/assets/d0cabc1f-5691-4b81-8cb5-056faa9202d4" />  Government dashboard
+
+
 ## Research & Domain Grounding
 
 - ICAR-NDRI
